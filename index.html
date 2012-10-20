@@ -1,0 +1,150 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Chord Selector</title>
+<link href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" rel="stylesheet" type="text/css"/>
+<script src="http://code.jquery.com/jquery-1.6.4.min.js" type="text/javascript"></script>
+<script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js" type="text/javascript"></script>
+
+<style>
+	input.ui-slider-input {
+		display: none !important;
+	}
+	.ui-field-contain div.ui-slider {
+		width: 85%;
+		}
+	.ui-field-contain label.ui-slider {
+		width:5%;
+		}
+	.ui-slider .ui-btn-corner-all,
+	.ui-slider .ui-btn-text {
+		
+		}
+	.ui-slider 	.ui-btn-inner {
+			color: #ff0000;
+			padding-top: .3em;}
+	.ui-btn-text {
+		
+		margin-bottom: -10px;
+		}
+	.page_content {
+		margin: 0 auto;
+		width: 620px;
+		text-align:center;
+		}
+</style>
+</head> 
+<body> 
+
+<div data-role="page" id="page">
+	<div data-role="header">
+		<h1>Page One</h1>
+	</div>
+	<div data-role="content">	
+    <div class="page_content">
+		<ul data-role="listview" data-inset="true">
+			<li><a href="#page2">E Chords Sample</a></li>
+            <li><a href="#">A Chords</a></li>
+            <li><a href="#">D Chords</a></li>
+            <li><a href="#">C Chords</a></li>
+		</ul>	
+        </div>	
+	</div>
+	<div data-role="footer" data-id="main_footer">
+		<h4>Page Footer</h4>
+	</div>
+</div>
+
+<div data-role="page" id="page2">
+	<div data-role="header">
+		<h1>Page Two</h1>
+	</div>
+	<div data-role="content">
+		<div class="page_content">
+		  <div data-role="controlgroup" data-type="horizontal">
+          <a href="#page2?Chord=E" data-role="button">E</a>
+          <a href="#page2?Chord=E7" data-role="button">E7</a>
+          <a href="#page2?Chord=Emin" data-role="button">Emin</a>
+          <a href="#page2?Chord=Emaj7" data-role="button">Emaj7</a>
+          <a href="#page2?Chord=Emin7" data-role="button">Emin7</a>
+          </div>
+        
+	    <div data-role="fieldcontain" id="string1">
+        <label for="slider1">E</label>
+	      <input type="range" name="slider1" id="slider1" step="1" value="0" min="0" max="12" />
+        </div>
+	   	<div data-role="fieldcontain" id="string2">
+        <label for="slider2">B</label>
+	      <input type="range" name="slider2" id="slider2" step="1" value="0" min="0" max="12" />
+        </div>
+		<div data-role="fieldcontain" id="string3">
+        <label for="slider3">G</label>
+	      <input type="range" name="slider" id="slider3" step="1" value="0" min="0" max="12" />
+        </div>	
+        <div data-role="fieldcontain" id="string4">
+        <label for="slider4">D</label>
+	      <input type="range" name="slider" id="slider4" step="1" value="0" min="0" max="12" />
+        </div>
+		<div data-role="fieldcontain" id="string5">
+        <label for="slider5">A</label>
+	      <input type="range" name="slider" id="slider5" step="1" value="0" min="0" max="12" />
+        </div>
+		<div data-role="fieldcontain" id="string6">
+        <label for="slider6">E</label>
+	      <input type="range" name="slider" id="slider6" step="1" value="0" min="0" max="12" />
+        </div>
+	
+		</div>	
+	</div>
+	<div data-role="footer" data-id="main_footer">
+		<h4>Page Footer</h4>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+var chords = { E: [0,0,1,2,2,0], E7: [0,1,3,2,2,0], Emin : [0,0,0,2,2,0]};
+
+$(document).bind( "pagebeforechange", function( e, data ) {
+	if ( typeof data.toPage === "string" ) {
+		var u = $.mobile.path.parseUrl( data.toPage ),
+		re = /^#page2/;
+
+		if ( u.hash.search(re) !== -1 ) {
+			var parameterName = /.*Chord=/;
+			if (u.hash.search(parameterName) !== -1) {
+				var parameterValue = u.hash.replace(parameterName, "");
+				
+				
+				$('#slider6').val(chords[parameterValue][5]);
+				$('#string6 .ui-btn-text').html(chords[parameterValue][5]);
+				$('#slider6').slider('refresh');
+				
+				$('#slider5').val(chords[parameterValue][4]);
+				$('#string5 .ui-btn-text').html(chords[parameterValue][4]);
+				$('#slider5').slider('refresh');
+				
+				$('#slider4').val(chords[parameterValue][3]);
+				$('#string4 .ui-btn-text').html(chords[parameterValue][3]);
+				$('#slider4').slider('refresh');
+				
+				$('#slider3').val(chords[parameterValue][2]);
+				$('#string3 .ui-btn-text').html(chords[parameterValue][2]);
+				$('#slider3').slider('refresh');
+				
+				$('#slider2').val(chords[parameterValue][1]);
+				$('#slider2').slider('refresh');
+				$('#string2 .ui-btn-text').html(chords[parameterValue][1]);
+				
+				$('#slider1').val(chords[parameterValue][0]);
+				$('#string1 .ui-btn-text').html(chords[parameterValue][0]);
+				$('#slider1').slider('refresh');
+            }
+
+		}
+	}
+});
+</script>
+</body>
+</html>
